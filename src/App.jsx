@@ -1,4 +1,5 @@
 import './App.css'
+import { AppContext } from './components/context.js';
 import {Header, UserBlock} from "./components/index.js";
 
 
@@ -11,20 +12,15 @@ const getUserFromServer = () => ({
 })
 
 export default function App() {
-    const {name, age, email, phone} = getUserFromServer()
+    const userData = getUserFromServer()
 
     return (
-        <>
-            <Header currentUser={name}/>
+        <AppContext.Provider value={userData}>
+            <Header />
             <hr/>
 
-            <UserBlock
-                name={name}
-                age={age}
-                email={email}
-                phone={phone}
-            />
-            <div>testBranch</div>
-        </>
+introductionToAPIContext
+            <UserBlock />
+        </AppContext.Provider>
     )
 }

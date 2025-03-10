@@ -1,7 +1,13 @@
-export const CurrentUser = ({currentUser}) => {
+import { useContext } from "react"
+import { AppContext } from "../../../context"
+
+
+export const CurrentUser = () => {
+    const {name} = useContext(AppContext)
+
     return (
         <>
-            <div>Current User: {currentUser}</div>
+            <div>Current User: {name}</div>
         </>
     )
 }
