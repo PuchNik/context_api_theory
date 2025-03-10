@@ -19,6 +19,7 @@ export default function App() {
             <Header />
             <hr/>
 
+introductionToAPIContext
             <UserBlock />
         </AppContext.Provider>
     )
