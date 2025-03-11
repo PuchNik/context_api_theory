@@ -3,19 +3,28 @@ import {ProductDataContext, UserDataContext} from "../../../../contextAPI/index.
 
 export const UserPersonalInfo = () => {
     // Деструктуризация UserDataContext
-    const {userData, dispatch} = useContext(UserDataContext)
-    const {name, age, email, phone} = userData
+    const {userData, dispatch: userDispatch} = useContext(UserDataContext)
+    const {name, age} = userData
 
-    // обновление данных пользователя (возраст)
-    const onUserUpdate = () => {
-        const newUserData = {...userData, age: 30}
-        dispatch({
-            type: 'SET_USER_DATA', payload: newUserData
+    // Деструктуризация UserDataContext
+    const {productData, dispatch: productDispatch} = useContext(ProductDataContext)
+    const {grade, price} = productData
+
+    // Обновление данных пользователя (возраст)
+    const updateUserName = () => {
+        const newUserName = {...userData, name: 'Pavel'}
+        userDispatch({
+            type: 'SET_USER_DATA', payload: newUserName
         })
     }
 
-    // Деструктуризация UserDataContext
-    const {sort, price} = useContext(ProductDataContext)
+    const updateUserPhone = () => {
+        userDispatch({type: 'SET_USER_PHONE_NUMBER', payload: userData})
+    }
+
+    const updateProductGrade = () => {
+        productDispatch({type: 'SET_PRODUCT_NAME', payload: productData})
+    }
 
     return (
         <>
@@ -24,10 +33,35 @@ export const UserPersonalInfo = () => {
             <div>Age: {age}</div>
 
             <h3>Product Data: </h3>
-            <div>Sort: {sort}</div>
-            <div>Sort: {price}</div>
+            <div>Grade: {grade}</div>
+            <div>Price: {price} руб</div>
 
-            <button onClick={onUserUpdate}>Обновить имя пользователя</button>
+            <button
+                onClick={updateUserName}
+                style={{
+                    marginTop: '20px'
+                }}
+            >
+                Обновить имя пользователя
+            </button>
+
+            <button
+                onClick={updateUserPhone}
+                style={{
+                    marginTop: '20px'
+                }}
+            >
+                Обновить телефон пользователя
+            </button>
+
+            <button
+                onClick={updateProductGrade}
+                style={{
+                    marginTop: '20px'
+                }}
+            >
+                Обновить сорт продукта
+            </button>
         </>
     )
 }

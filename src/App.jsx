@@ -16,18 +16,18 @@ const getUserFromServer = () => ({
 // Получение данных продукта с "сервера"
 const getProductFromServer = () => ({
     id: 'product_1',
-    sort: 'Antonovka',
+    grade: 'Antonovka',
     price: 34,
     country: 'Russia'
 })
 
 // Получение измененных данных пользователя с "сервера"
 const getAnotherUserFromServer = () => ({
-    id: 'user_1',
+    id: 'user_2',
     name: 'Igor',
-    age: 23,
-    email: 'puch@gmail.com',
-    phone: '8-888-888-88-88',
+    age: 46,
+    email: 'igor@mail.ru',
+    phone: '7-777-777-77-77',
 })
 
 export default function App() {
@@ -44,8 +44,20 @@ export default function App() {
             case 'SET_USER_DATA':
                 setUserData(payload)
                 break
+            case 'SET_USER_PHONE_NUMBER':
+                setUserData({
+                    ...userData,
+                    phone: '8-999-999-99-99',
+                })
+                break
+            case 'SET_PRODUCT_NAME':
+                setProductData({
+                    ...productData,
+                    grade: 'Gala',
+                })
+                break
             default:
-                // Ничего не делаем
+            // Ничего не делаем
         }
     }
 
@@ -67,7 +79,7 @@ export default function App() {
     }
 
     return (
-        <AppContextProvider userValue={{userData, dispatch}} productValue={productData}>
+        <AppContextProvider userValue={{userData, dispatch}} productValue={{productData, dispatch}}>
             <Header/>
             <hr/>
 

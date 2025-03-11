@@ -2,7 +2,9 @@ import {useContext} from 'react'
 import {ProductDataContext, UserDataContext} from "../../../../contextAPI/index.js";
 
 export const UserContacts = () => {
-    const {email, phone} = useContext(UserDataContext)
+    const {userData} = useContext(UserDataContext)
+    const {email, phone} = userData
+
     const {country} = useContext(ProductDataContext)
 
     return (
