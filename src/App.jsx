@@ -1,6 +1,7 @@
 import './App.css'
 import {Header, UserBlock} from "./components/index.js"
 import {AppContextProvider} from "./contextAPI/AppContextProvider.jsx";
+import {useEffect, useState} from "react";
 
 
 const getUserFromServer = () => ({
@@ -18,10 +19,31 @@ const getProductFromServer = () => ({
     country: 'Russia'
 })
 
-export default function App() {
-    const userData = getUserFromServer()
+const getAnotherUserFromServer = () => ({
+    id: 'user_1',
+    name: 'Igor',
+    age: 23,
+    email: 'puch@gmail.com',
+    phone: '8-888-888-88-88',
+})
 
-    const productData = getProductFromServer()
+
+export default function App() {
+    const [userData, setUserData] = useState({})
+    const [productData, setProductData] = useState({})
+
+    useEffect(() => {
+        const userDataFromServer = getUserFromServer()
+        setUserData(userDataFromServer)
+
+        const productDataFromServer = getProductFromServer()
+        setProductData(productDataFromServer)
+    }, [])
+
+    const onUserChange = () => {
+        const anotherUserDataFromServer = getAnotherUserFromServer()
+        setUserData(anotherUserDataFromServer)
+    }
 
     return (
         <AppContextProvider userValue={userData} productValue={productData}>
@@ -29,6 +51,7 @@ export default function App() {
             <hr/>
 
             <UserBlock/>
+            <button onClick={onUserChange}>Сменить пользователя</button>
         </AppContextProvider>
     )
 }
