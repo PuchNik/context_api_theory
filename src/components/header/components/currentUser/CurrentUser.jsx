@@ -1,9 +1,9 @@
 import { useContext } from "react"
-import { AppContext } from "../../../context"
+import {UserDataContext} from "../../../../contextAPI/index.js";
 
 
 export const CurrentUser = () => {
-    const {name} = useContext(AppContext)
+    const {name} = useContext(UserDataContext)
 
     return (
         <>

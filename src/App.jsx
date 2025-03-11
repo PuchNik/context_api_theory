@@ -1,6 +1,6 @@
 import './App.css'
-import { AppContext } from './components/context.js';
-import {Header, UserBlock} from "./components/index.js";
+import {Header, UserBlock} from "./components/index.js"
+import {AppContextProvider} from "./contextAPI/AppContextProvider.jsx";
 
 
 const getUserFromServer = () => ({
@@ -11,16 +11,24 @@ const getUserFromServer = () => ({
     phone: '8-888-888-88-88',
 })
 
+const getProductFromServer = () => ({
+    id: 'product_1',
+    sort: 'Antonovka',
+    price: 34,
+    country: 'Russia'
+})
+
 export default function App() {
     const userData = getUserFromServer()
 
+    const productData = getProductFromServer()
+
     return (
-        <AppContext.Provider value={userData}>
-            <Header />
+        <AppContextProvider userValue={userData} productValue={productData}>
+            <Header/>
             <hr/>
 
-introductionToAPIContext
-            <UserBlock />
-        </AppContext.Provider>
+            <UserBlock/>
+        </AppContextProvider>
     )
 }
