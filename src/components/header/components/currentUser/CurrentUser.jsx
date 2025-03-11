@@ -3,7 +3,8 @@ import {UserDataContext} from "../../../../contextAPI/index.js";
 
 
 export const CurrentUser = () => {
-    const {name} = useContext(UserDataContext)
+    const {userData} = useContext(UserDataContext)
+    const {name} = userData
 
     return (
         <>
