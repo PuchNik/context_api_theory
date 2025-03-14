@@ -1,18 +1,15 @@
-import {useContext} from 'react'
-import {ProductDataContext, UserDataContext} from "../../../../contextAPI/index.js";
+import { useContext } from 'react'
+import { UserDataContext } from '../../../../contextAPI/index.js'
 
 export const UserContacts = () => {
-    const {userData} = useContext(UserDataContext)
-    const {email, phone} = userData
+  const { userData } = useContext(UserDataContext)
+  const { email, phone } = userData
 
-    const {country} = useContext(ProductDataContext)
-
-    return (
-        <>
-            <h3>Contacts: </h3>
-            <div>Mail: {email}</div>
-            <div>Phone: {phone}</div>
-            <div>Country: {country}</div>
-        </>
-    )
+  return (
+    <>
+      <h3>Contacts: </h3>
+      <div>Mail: {email}</div>
+      <div>Phone: {phone}</div>
+    </>
+  )
 }

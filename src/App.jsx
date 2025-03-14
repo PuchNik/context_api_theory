@@ -1,7 +1,7 @@
 import './App.css'
 import { Header, UserBlock } from './components/index.js'
 import { AppContextProvider } from './contextAPI/AppContextProvider.jsx'
-import { useEffect, useState } from 'react'
+import { useEffect, useReducer } from 'react'
 
 // Получение первичных данных пользователя с "сервера"
 const getUserFromServer = () => ({
@@ -10,14 +10,6 @@ const getUserFromServer = () => ({
   age: 23,
   email: 'puch@gmail.com',
   phone: '8-888-888-88-88',
-})
-
-// Получение данных продукта с "сервера"
-const getProductFromServer = () => ({
-  id: 'product_1',
-  grade: 'Antonovka',
-  price: 34,
-  country: 'Russia',
 })
 
 // Получение измененных данных пользователя с "сервера"
@@ -35,16 +27,6 @@ const reducer = (state, action) => {
   switch (type) {
     case 'SET_USER_DATA':
       return payload
-    case 'SET_USER_PHONE_NUMBER':
-      return {
-        ...state,
-        phone: '8-999-999-99-99',
-      }
-    case 'SET_PRODUCT_NAME':
-      return {
-        ...state,
-        grade: 'Gala',
-      }
     default:
       return state
   }
@@ -52,40 +34,22 @@ const reducer = (state, action) => {
 
 export default function App() {
   // Хранение данных о пользователе
-  const [userData, setUserData] = useState({})
-
-  // Хранение данных о продукте
-  const [productData, setProductData] = useState({})
-
-  const dispatch = (action) => {
-    const newUserState = reducer(userData, action)
-    setUserData(newUserState)
-
-    const newProductState = reducer(productData, action)
-    setProductData(newProductState)
-  }
+  const [userData, dispatch] = useReducer(reducer, {})
 
   useEffect(() => {
     // Внесение в состояние измененных данных о пользователе
     const userDataFromServer = getUserFromServer()
-    setUserData(userDataFromServer)
-
-    // Внесение в состояние измененных данных о продукте
-    const productDataFromServer = getProductFromServer()
-    setProductData(productDataFromServer)
+    dispatch({ type: 'SET_USER_DATA', payload: userDataFromServer })
   }, [])
 
   // Изменение данных пользователя в UI
   const onUserChange = () => {
     const anotherUserDataFromServer = getAnotherUserFromServer()
-    setUserData(anotherUserDataFromServer)
+    dispatch({ type: 'SET_USER_DATA', payload: anotherUserDataFromServer })
   }
 
   return (
-    <AppContextProvider
-      userValue={{ userData, dispatch }}
-      productValue={{ productData, dispatch }}
-    >
+    <AppContextProvider userValue={{ userData, dispatch }}>
       <Header />
       <hr />
 
